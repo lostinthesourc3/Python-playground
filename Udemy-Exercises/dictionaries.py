@@ -47,3 +47,19 @@ inventory = {'croissant': 19, 'bagel': 4, 'muffin': 8, 'cake': 1}
 stock_list = inventory.copy()
 stock_list['cookie'] = 18
 stock_list.pop('cake')
+
+# 7
+list1 = ["CA", "NJ", "RI"]
+list2 = ["California", "New Jersey", "Rhode Island"]
+ 
+answer = {list1[i]: list2[i] for i in range(0,3)}
+
+# 8
+person = [["name", "Jared"], ["job", "Musician"], ["city", "Bern"]]
+answer = {thing[0]: thing[1] for thing in person}
+
+# 9
+answer = {char:0 for char in 'aeiou'} 
+
+# 10
+answer = {count: chr(count) for count in range(65,91)}
