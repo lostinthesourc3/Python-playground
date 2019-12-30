@@ -52,3 +52,19 @@ def last_element(l):
     if l:
         return l[-1]
     return None
+
+# 9
+def number_compare(a,b):
+    if a > b:
+        return "First is greater"
+    elif b > a:
+        return "Second is greater"
+    return "Numbers are equal"
+
+# 10
+def single_letter_count(string,letter):
+    return string.lower().count(letter.lower())
+
+# 11
+def multiple_letter_count(string):
+    return {letter: string.count(letter) for letter in string}
