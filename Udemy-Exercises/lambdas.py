@@ -31,3 +31,14 @@ def sum_floats(*args):
     return sum(arg for arg in args if type(arg) == float)
 
 # 9
+def interleave(str1,str2):
+    return ''.join(''.join(x) for x in (zip(str1,str2)))
+
+# 10
+def triple_and_filter(lst):
+    return list(filter(lambda x: x % 4 == 0, map(lambda x: x*3, lst)))
+
+# 11
+def extract_full_name(l):
+    return list(map(lambda val: "{} {}".format(val['first'], val['last']), l))
+
