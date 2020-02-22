@@ -137,6 +137,35 @@ df['INDUS'][:50].median()
 
 
 # II
+# multiple conditions
+df[(df['RM'] > 7) & (df['TAX'] < 300)]
+
+# average price when taxes above 300
+df[df['TAX'] > 300]['PRICE'].mean()
+
+# average praice when taxes > 300 and chas = 1
+df[(df['TAX'] > 300) & (df['CHAS'] == 0)]['PRICE'].mean()
+
+# number of houses with crime over average and chas = 1
+average = df['CRIM'].mean()
+df[(df['CHAS'] == 0) & (df['CRIM'] > average)]
 
 
+#####################
+# charts (seaborn graphic library)
+#####################
+import seaborn as sns
+import matplotlib as plt
+
+df.head()
+sns.regplot(x = 'RM', y = 'PRICE', data = df)
+
+sns.distplot(df['PRICE'])
+# save image
+plt.savefig('hist.png')
+
+
+#####################
+# MACHINE LEARNING 
+#####################
 
