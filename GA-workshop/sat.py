@@ -1,5 +1,9 @@
 # notes from saturday Feb 22
+
+#####################
 # NUMPY
+#####################
+
 import numpy as np
 
 arr = np.arange(20).reshape(5, 4)
@@ -20,8 +24,10 @@ arr.mean(axis = 1)
 # mean of each row
 # array([ 1.5,  5.5,  9.5, 13.5, 17.5])
 
-
+#####################
 # PANDAS
+#####################
+
 import pandas as pd
 
 # import file, save as variable
@@ -91,5 +97,46 @@ df.iloc[5:11, 2:6]
 
 # get specific columns
 df.iloc[5:11, [0, 2, 4, 9]]
+
+
+# pandas activities
+
+# I
+# average of first 100 rows 
+df['PRICE'][:100].mean()
+
+df['CHAS'][:100].mean()
+'''
+0.0
+'''
+
+# average of first 100 rows B and CHAS columns
+df[['B', 'CHAS']][:100].mean()
+'''
+    B       385.3015
+    CHAS      0.0000
+    dtype: float64
+'''
+
+# mean of first 50 rows for columns with index positions 0 and 1
+df.iloc[:50, [0, 2]].median()
+'''
+    CRIM     0.22233
+    INDUS    7.87000
+    dtype: float64
+'''
+# confirm
+df['CRIM'][:50].median()
+'''
+    0.22233
+'''
+df['INDUS'][:50].median()
+'''
+    7.87
+'''
+
+
+# II
+
 
 
