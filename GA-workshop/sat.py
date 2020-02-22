@@ -169,3 +169,185 @@ plt.savefig('hist.png')
 # MACHINE LEARNING 
 #####################
 
+from sklearn.linear_model import LinearRegression
+
+lreg = LinearRegression()
+lreg
+'''
+    LinearRegression(copy_X=True, fit_intercept=True, n_jobs=None, normalize=False)
+'''
+
+x = df[['RM', 'LSTAT']]
+y = df['PRICE']
+
+# fit
+lreg.fit(x, y)
+'''
+    LinearRegression(copy_X=True, fit_intercept=True, n_jobs=None, normalize=False) 
+'''
+
+# m slope: first number RM (m1) second - LSAT (m2)
+lreg.coef_
+'''
+    array([ 5.09478798, -0.64235833])
+'''
+
+# b intercept
+lreg.intercept_
+'''
+    -1.3582728118744818
+'''
+
+# score 
+lreg.score(x, y)
+'''
+    0.6385616062603403
+'''
+
+# predict - using y = mx + b formula
+lreg.predict(x)
+'''
+    array([28.94101368, 25.48420566, 32.65907477, 32.40652   , 31.63040699,
+           28.05452701, 21.28707846, 17.78559653,  8.10469338, 18.24650673,
+           17.99496223, 20.73221309, 18.5534842 , 23.64474107, 23.10895823,
+           22.9239452 , 24.65257604, 19.73611045, 18.9297215 , 20.57377596,
+           13.51732408, 20.14832175, 17.90896697, 15.48764606, 18.35281036,
+           16.56210901, 18.74440281, 18.34995811, 23.51018847, 24.94888935,
+    ...
+'''
+
+# exercise
+X = df.iloc[:, :-1]
+y = df['PRICE']
+
+lreg.fit(X, y)
+
+lreg.coef_
+'''
+    array([-1.08011358e-01,  4.64204584e-02,  2.05586264e-02,  2.68673382e+00,
+       -1.77666112e+01,  3.80986521e+00,  6.92224640e-04, -1.47556685e+00,
+        3.06049479e-01, -1.23345939e-02, -9.52747232e-01,  9.31168327e-03,
+       -5.24758378e-01])
+'''
+
+lreg.intercept_
+'''
+    36.459488385090005
+'''
+
+lreg.score(X, y)
+'''
+    0.7406426641094094
+'''
+
+###
+
+coeffs = {
+    'Column' : X.columns,
+    'Coeff' : lreg.coef_
+}
+
+coeffs
+'''
+    {'Column': Index(['CRIM', 'ZN', 'INDUS', 'CHAS', 'NOX', 'RM', 'AGE', 'DIS', 'RAD', 'TAX',
+            'PTRATIO', 'B', 'LSTAT'],
+        dtype='object'),
+    'Coeff': array([-1.08011358e-01,  4.64204584e-02,  2.05586264e-02,  2.68673382e+00,
+            -1.77666112e+01,  3.80986521e+00,  6.92224640e-04, -1.47556685e+00,
+            3.06049479e-01, -1.23345939e-02, -9.52747232e-01,  9.31168327e-03,
+            -5.24758378e-01])}
+'''
+
+coef_df = pd.DataFrame(coeffs)
+coef_df.sort_values(by = 'Coeff', ascending = False)
+'''
+        Column	Coeff
+    5	RM	    3.809865
+    3	CHAS	2.686734
+    8	RAD	    0.306049
+    1	ZN	    0.046420
+    2	INDUS	0.020559
+    11	B	    0.009312
+    6	AGE	    0.000692
+    9	TAX	    -0.012335
+    0	CRIM	-0.108011
+    12	LSTAT	-0.524758
+    10	PTRATIO	-0.952747
+    7	DIS	    -1.475567
+    4	NOX	    -17.766611
+'''
+
+df['NOX'].max()
+'''
+    0.871
+'''
+
+df['NOX'].min()
+'''
+    0.385
+'''
+
+# resize the data / scale: STANDARDIZATION
+X-X.mean()
+'''
+    0	-3.607204	6.636364	-8.826779	-0.06917	-0.016695	0.290366	-3.374901	0.294957	-8.549407	-112.237154	-3.155534	40.225968	-7.673063
+    1	-3.586214	-11.363636	-4.066779	-0.06917	-0.085695	0.136366	10.325099	1.172057	-7.549407	-166.237154	-0.655534	40.225968	-3.513063
+    2	-3.586234	-11.363636	-4.066779	-0.06917	-0.085695	0.900366	-7.474901	1.172057	-7.549407	-166.237154	-0.655534	36.155968	-8.623063
+    3	-3.581154	-11.363636	-8.956779	-0.06917	-0.096695	0.713366	-22.774901	2.267157	-6.549407	-186.237154	0.244466	37.955968	-9.713063
+    4	-3.544474	-11.363636	-8.956779	-0.06917	-0.096695	0.862366	-14.374901	2.267157	-6.549407	-186.237154	0.244466	40.225968	-7.323063
+    ...	...	...	...	...	...	...	...	...	...	...	...	...	...
+'''
+
+X.describe()
+X = X / X.std()
+X.describe()
+'''
+    std is now 1
+'''
+
+# exercise on standardized set
+
+lreg.fit(X, y)
+lreg.score(X, y)
+'''
+    same as before
+'''
+
+coeffs = {
+    'Column' : X.columns,
+    'Coeff' : lreg.coef_
+}
+
+coeffs
+'''
+    {'Column': Index(['CRIM', 'ZN', 'INDUS', 'CHAS', 'NOX', 'RM', 'AGE', 'DIS', 'RAD', 'TAX',
+            'PTRATIO', 'B', 'LSTAT'],
+        dtype='object'),
+    'Coeff': array([-0.92906457,  1.08263896,  0.14103943,  0.68241438, -2.05875361,
+            2.67687661,  0.01948534, -3.10711605,  2.6648522 , -2.07883689,
+            -2.06264585,  0.85010886, -3.74733185])}
+'''
+
+coef_df = pd.DataFrame(coeffs)
+coef_df.sort_values(by = 'Coeff', ascending = False)
+'''
+        Column	Coeff
+    5	RM	    2.676877
+    8	RAD	    2.664852
+    1	ZN	    1.082639
+    11	B	    0.850109
+    3	CHAS	0.682414
+    2	INDUS	0.141039
+    6	AGE	    0.019485
+    0	CRIM	-0.929065
+    4	NOX	    -2.058754
+    10	PTRATIO	-2.062646
+    9	TAX	    -2.078837
+    7	DIS	    -3.107116
+    12	LSTAT	-3.747332
+'''
+
+# shapes for these graphs are identical. 
+# when standardize, you change scale. 
+df['TAX'].hist()
+X['TAX'].hist()
